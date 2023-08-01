@@ -37,5 +37,6 @@ export class Customer extends Person {
 
 
 export class ListPerson {
-
+    list= [];
 }
+
