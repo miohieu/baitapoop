@@ -1,5 +1,6 @@
 import getElement from "../utils/getElement.js"
 import { Customer, Employee, ListPerson, Student } from "../model/model.js";
+import createHTML from "../view/render.js";
 
 const userlist = new ListPerson();
 
@@ -26,58 +27,38 @@ const renderUserList = (list = userlist.list) => {
     getElement("#tbody").innerHTML = contentTable;
 };
 
+
+getElement('#typeuser').onchange = createHTML
 function getInfo() {
-}
+    const id = getElement("#txtMaSV").value
+    const name = getElement("#txtTenSV").value
+    const email = getElement("#txtEmail").value
+    const address = getElement("#txtPass").value
 
-getElement('#typeuser').onchange = function createUser() {
+    const math = getElement("#txtMath").value
+    const physics = getElement("#txtPhysics").value
+    const chemistry = getElement("#txtChemistry").value
 
-    const type = getElement("#typeuser").value
-    let form = getElement("#form-custom")
+    const company = getElement("#txtCompanyName").value
+    const rating = getElement("#txtCustomer").value
+    const bill = getElement("#txtInvoiceValue").value
 
-    form.innerHTML = ""
+    const wage = getElement("#txtWage").value
+    const workDay = getElement("#txtWork").value
 
-    let object = undefined
+    return function createObj() {
+        let obj = undefined;
+        if(wage) {
+            return obj = new Employee(id, name, email, address, wage, workDay)
+        }
+        if(math) {
+            return obj = new Student(id, name, email, address, math, physics,chemistry)
+        }
+        if(bill) {
+            return obj = new Customer(id, name, email, address, company, bill,rating)
+        }
 
-    if (type === '1') {
-        form.innerHTML = `
-          <div class="col-6 form-group">
-            <label for="txtCustomer">Danh gia</label>
-            <input type="text" class="form-control" id="txtCustomer">
-            <span class="text-danger"></span>
-          </div>
-          <div class="col-6 form-group">
-            <label for="txtInvoiceValue">Gia tri Hoa don</label>
-            <input type="text" class="form-control" id="txtInvoiceValue">
-            <span class="text-danger"></span>
-          </div>
-          <div class="col-6 form-group">
-            <label for="txtCompanyName">Ten Cong ty</label>
-            <input type="text" class="form-control" id="txtCompanyName">
-            <span class="text-danger"></span>
-          </div>
-        `;
-    } else if (type === '3') {
-        form.innerHTML = `
-          <div class="col-6 form-group">
-            <label for="txtMath">Toan</label>
-            <input type="text" class="form-control" id="txtMath">
-            <span class="text-danger"></span>
-          </div>
-          <div class="col-6 form-group">
-            <label for="txtPhysics">Ly</label>
-            <input type="text" class="form-control" id="txtPhysics">
-            <span class="text-danger"></span>
-          </div>
-          <div class="col-6 form-group">
-            <label for="txtChemistry">Hoa</label>
-            <input type="text" class="form-control" id="txtChemistry">
-            <span class="text-danger"></span>
-          </div>
-        `;
-    } else if (type === '2') {
-        // Create an instance of the Student class or perform any other actions.
     }
-    console.log("form", form)
-    return object;
 }
+
 
